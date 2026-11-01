@@ -114,6 +114,22 @@ Modelo comentado: [config.example](config.example).
 - **Trocar o modo à mão:** segure o dedo sobre a hora — alterna automático → dia → noite → automático.
 - **apps:** lista simples dos outros apps instalados.
 
+### Sugestão: ler acompanhando o audiolivro (Spotify)
+Instale o Spotify no tablet e toque o audiolivro enquanto lê o mesmo livro no KOReader. O áudio
+continua em segundo plano com a tela do leitor aberta. Os audiolivros dependem da sua conta e da sua
+região.
+
+- **Com Play Store:** instale normalmente.
+- **Sem Play Store:** copie o app de outro aparelho. O Spotify vem dividido em vários APKs. Mande o
+  `base.apk` **e todos os `split_config.*.apk`** (processador, densidade da tela e idioma), por exemplo
+  `split_config.arm64_v8a.apk`, `split_config.hdpi.apk` e `split_config.pt.apk`. Só o `base.apk` dá
+  `INSTALL_FAILED_MISSING_SPLIT`. Instale todos juntos:
+  ```powershell
+  adb install-multiple base.apk split_config.arm64_v8a.apk split_config.hdpi.apk split_config.pt.apk
+  ```
+  Os splits precisam servir no tablet. Confira com `adb shell getprop ro.product.cpu.abilist` e
+  `adb shell wm density` (no M8: `arm64-v8a` e 240 = hdpi). Testado no M8 com o Spotify 9.1.94.
+
 ## Limite de carga
 O relógio funciona **sem root**. Limitar a bateria em 85% (para um tablet que fica 24 h no carregador)
 é **opcional**:
