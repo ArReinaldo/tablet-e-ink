@@ -1,0 +1,30 @@
+# Relógio de cabeceira — configuração
+# No tablet este arquivo se chama cabeceira.conf e fica em
+#   /sdcard/Android/data/br.tabletink.cabeceira/files/cabeceira.conf
+# Edite e salve; o relógio relê sozinho em até 1 minuto.
+
+# Cidade (só para referência) e coordenadas usadas na previsão do tempo (Open-Meteo).
+# Para achar as coordenadas da sua cidade:
+#   https://geocoding-api.open-meteo.com/v1/search?name=SUA_CIDADE&language=pt&countryCode=BR
+cidade = Brasília, DF
+latitude = -15.7939
+longitude = -47.8828
+
+# Endereço secreto no formato iCal do Google Agenda
+# (Agenda > Configurações > sua agenda > Endereço secreto no formato iCal).
+# Vazio = usa o arquivo lembretes.txt desta mesma pasta.
+ical =
+
+# Modo noite (só a hora e a data, em âmbar) e a transição suave, em minutos
+noite_inicio = 21:00
+noite_fim = 06:00
+transicao_minutos = 15
+
+# Depois do fim da noite, quanto tempo a previsão do dia fica em destaque
+acordar_minutos = 60
+
+# De quanto em quanto tempo atualizar o tempo e a agenda
+atualizar_minutos = 30
+
+# Quantos lembretes mostrar no rodapé (2 ou 3)
+lembretes = 3

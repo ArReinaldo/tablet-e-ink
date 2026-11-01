@@ -1,0 +1,31 @@
+# ---- Dados pessoais e do aparelho (nunca publicar) ----
+backup/
+tools/
+config/
+downloads/
+lembretes.txt
+scripts/local.ps1
+docs/fastbootd-getvar.txt
+mtkclient-main/
+mtkclient-main.zip
+
+# ---- Binários, imagens de partição, pacotes e logs ----
+*.img
+*.bin
+*.apk
+*.aab
+*.zip
+*.msi
+*.log
+*.tmp
+
+# ---- Android / Gradle ----
+app-relogio/.gradle/
+app-relogio/build/
+app-relogio/app/build/
+app-relogio/local.properties
+.gradle/
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
