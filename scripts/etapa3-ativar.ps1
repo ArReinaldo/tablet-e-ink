@@ -3,12 +3,15 @@
 #   .\etapa3-ativar.ps1            -> aplica
 #   .\etapa3-ativar.ps1 -Desfazer  -> volta ao launcher padrão e às opções originais
 #
-# Antes: compile o app (README > Instalação) para gerar o APK em app-relogio\app\build\outputs\apk\debug\
-param([switch]$Desfazer)
+#   .\etapa3-ativar.ps1 -Apk C:\caminho\cabeceira-v0.2.0.apk  -> usa o APK baixado das Releases
+#
+# Sem -Apk, usa o APK compilado em app-relogio\app\build\outputs\apk\debug\
+param([switch]$Desfazer, [string]$Apk)
 . "$PSScriptRoot\_comum.ps1"
+if ($Apk) { $ApkApp = $Apk }
 
 if (-not $Desfazer) {
-    if (-not (Test-Path $ApkApp)) { Write-Host "APK não encontrado: $ApkApp (compile o app antes)." -ForegroundColor Red; exit 1 }
+    if (-not (Test-Path $ApkApp)) { Write-Host "APK não encontrado: $ApkApp (baixe das Releases e use -Apk, ou compile o app)." -ForegroundColor Red; exit 1 }
     & $adb install -r $ApkApp
 
     # Visual de cores suaves: desliga o monocromático da Etapa 2

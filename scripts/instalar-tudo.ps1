@@ -1,9 +1,10 @@
 ﻿# Instala o projeto inteiro num tablet (sem root): ajustes, limpeza de apps, KOReader e o relógio.
-# Antes: Depuração USB ligada, PC autorizado no tablet e o app compilado (README > Instalação).
+# Antes: Depuração USB ligada e PC autorizado no tablet (README > Instalação).
 # Uso:
-#   .\instalar-tudo.ps1               -> tudo
-#   .\instalar-tudo.ps1 -SemDebloat   -> pula a remoção de apps (recomendado fora do Multilaser M8)
-param([switch]$SemDebloat)
+#   .\instalar-tudo.ps1 -Apk C:\caminho\cabeceira-v0.2.0.apk   -> com o APK baixado das Releases
+#   .\instalar-tudo.ps1                                         -> com o APK compilado localmente
+#   -SemDebloat   -> pula a remoção de apps (recomendado fora do Multilaser M8)
+param([switch]$SemDebloat, [string]$Apk)
 . "$PSScriptRoot\_comum.ps1"
 
 Write-Host "Aguardando o tablet autorizado no adb..."
@@ -35,6 +36,6 @@ if (-not $apk) {
 & $adb install -r $apk.FullName
 
 Write-Host "`n== Etapa 3: relógio de cabeceira (instala o app e ativa) =="
-& "$PSScriptRoot\etapa3-ativar.ps1"
+if ($Apk) { & "$PSScriptRoot\etapa3-ativar.ps1" -Apk $Apk } else { & "$PSScriptRoot\etapa3-ativar.ps1" }
 
 Write-Host "`nPronto. Configure cidade e agenda com: .\config-relogio.ps1 -Baixar (README > Configuração)"

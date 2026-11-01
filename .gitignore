@@ -1,4 +1,7 @@
 # ---- Dados pessoais e do aparelho (nunca publicar) ----
+assinatura/
+*.jks
+*.keystore
 backup/
 tools/
 config/

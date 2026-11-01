@@ -14,9 +14,26 @@ android {
         versionName '0.2'
     }
 
+    // Assinatura da release: só se existir <projeto>/assinatura/keystore.properties (fora do git).
+    // Sem ele, assembleRelease gera um APK não assinado; use assembleDebug para testar.
+    def chave = rootProject.file('../assinatura/keystore.properties')
+    if (chave.exists()) {
+        def p = new Properties()
+        chave.withInputStream { p.load(it) }
+        signingConfigs {
+            release {
+                storeFile file(p['storeFile'])
+                storePassword p['storePassword']
+                keyAlias p['keyAlias']
+                keyPassword p['keyPassword']
+            }
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
+            if (chave.exists()) signingConfig signingConfigs.release
         }
     }
 

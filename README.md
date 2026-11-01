@@ -39,8 +39,8 @@ apps removidos pelo `etapa2-debloat.ps1` foi feita para o M8; em outro aparelho,
 - PC com **Windows** e PowerShell
 - **adb** — [Android SDK Platform-Tools](https://developer.android.com/tools/releases/platform-tools)
 - **Cabo USB** de dados
-- No tablet: **Depuração USB** ligada
-- Para compilar o app: **JDK 17** e o **Android SDK** (plataforma 34 + build-tools 34)
+- No tablet: **Depuração USB** ligada, Android 11 ou mais novo
+- Só se for compilar o app: **JDK 17** e o **Android SDK** (plataforma 34 + build-tools 34)
 
 ## Instalação (sem root)
 1. **Depuração USB no tablet:** Configurações → Sobre o tablet → toque 7 vezes em “Número da versão”;
@@ -51,19 +51,22 @@ apps removidos pelo `etapa2-debloat.ps1` foi feita para o M8; em outro aparelho,
    ```
    Conecte o tablet, aceite “Permitir depuração USB” e confira com `adb devices`.
    (Para não repetir isso, crie `scripts\local.ps1` com essa linha — o arquivo fica fora do git.)
-3. **Compilar o app:**
+3. **O app:** baixe o `cabeceira-vX.Y.Z.apk` da página de
+   [Releases](https://github.com/ArReinaldo/tablet-e-ink/releases) — ou compile você mesmo
+   (precisa de JDK 17 e Android SDK):
    ```powershell
    # uma vez: diga ao Gradle onde está o Android SDK
    Set-Content app-relogio\local.properties "sdk.dir=C\:\\Android\\sdk"
    cd app-relogio; .\gradlew.bat assembleDebug; cd ..
    ```
-   O APK sai em `app-relogio\app\build\outputs\apk\debug\app-debug.apk`.
-4. **Instalar tudo:**
+   O APK compilado sai em `app-relogio\app\build\outputs\apk\debug\app-debug.apk`.
+4. **Instalar tudo** (baixe este repositório como ZIP ou com `git clone` e abra o PowerShell na pasta):
    ```powershell
    Set-ExecutionPolicy -Scope Process Bypass
-   .\scripts\instalar-tudo.ps1            # no Multilaser M8
-   .\scripts\instalar-tudo.ps1 -SemDebloat  # em outros aparelhos
+   .\scripts\instalar-tudo.ps1 -Apk C:\Downloads\cabeceira-v0.2.0.apk              # Multilaser M8
+   .\scripts\instalar-tudo.ps1 -Apk C:\Downloads\cabeceira-v0.2.0.apk -SemDebloat  # outros aparelhos
    ```
+   (Sem `-Apk`, usa o APK que você compilou.)
    O script aplica os ajustes de sistema, remove apps desnecessários, baixa e instala o KOReader
    oficial, instala o relógio como tela inicial e protetor de tela, e dá a ele acesso de leitura à
    pasta do KOReader (para mostrar o livro atual).
