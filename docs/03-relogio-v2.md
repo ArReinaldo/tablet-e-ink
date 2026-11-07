@@ -1,4 +1,4 @@
-# Relógio de cabeceira v0.2 — detalhes
+# Relógio de cabeceira v0.3 — detalhes
 
 ## O que mostra
 | Modo | Quando (padrão) | Conteúdo |

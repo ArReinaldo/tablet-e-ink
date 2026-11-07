@@ -3,7 +3,7 @@
 #   .\etapa3-ativar.ps1            -> aplica
 #   .\etapa3-ativar.ps1 -Desfazer  -> volta ao launcher padrão e às opções originais
 #
-#   .\etapa3-ativar.ps1 -Apk C:\caminho\cabeceira-v0.2.0.apk  -> usa o APK baixado das Releases
+#   .\etapa3-ativar.ps1 -Apk C:\caminho\cabeceira-v0.3.0.apk  -> usa o APK baixado das Releases
 #
 # Sem -Apk, usa o APK compilado em app-relogio\app\build\outputs\apk\debug\
 param([switch]$Desfazer, [string]$Apk)
