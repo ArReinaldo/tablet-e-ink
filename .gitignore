@@ -6,6 +6,7 @@ backup/
 tools/
 config/
 downloads/
+apps/
 lembretes.txt
 scripts/local.ps1
 docs/fastbootd-getvar.txt

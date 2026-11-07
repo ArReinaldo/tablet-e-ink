@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Previsão do tempo (Open-Meteo) e agenda (link iCal) -->
     <uses-permission android:name="android.permission.INTERNET" />
-    <!-- Ler o livro atual do KOReader em /sdcard/koreader; concedida via adb (appops) -->
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
-        tools:ignore="ScopedStorage" />
 
     <queries>
+        <package android:name="org.readera" />
         <package android:name="org.koreader.launcher" />
         <intent>
             <action android:name="android.intent.action.MAIN" />

@@ -3,7 +3,7 @@
 ## O que mostra
 | Modo | Quando (padrão) | Conteúdo |
 |---|---|---|
-| Dia (papel) | 06:00–21:00 | hora, data por extenso, tempo (ícone · agora · mín/máx · resumo), livro atual ("Título · NN%") ou "Continuar lendo", "apps", até 3 lembretes |
+| Dia (papel) | 06:00–21:00 | hora, data por extenso, tempo (ícone · agora · mín/máx · resumo), "Meus livros", "apps", até 3 lembretes |
 | Ao acordar | 1ª hora após o fim da noite | igual ao dia, com a previsão do dia em destaque |
 | Noite (âmbar) | 21:00–06:00 | só hora e data; um toque mostra o botão do livro por 10 s |
 
@@ -44,8 +44,9 @@ todo-dia 22:00 Remédio
 - Tempo: Open-Meteo (sem chave); última resposta em `tempo.json` — sem internet mostra "atualizado às HH:MM".
 - Agenda: cache em `agenda.ics`. Suporta repetições (diária/semanal/mensal/anual, BYDAY, COUNT, UNTIL),
   exceções e ocorrências remarcadas/canceladas. Lembrete repetido aparece só na próxima ocorrência.
-- Livro: lê `/sdcard/koreader/settings.reader.lua` e `<livro>.sdr/metadata.*.lua`; precisa de
-  `appops set br.tabletink.cabeceira MANAGE_EXTERNAL_STORAGE allow` (já no `etapa3-ativar.ps1`).
+- Livro: "Meus livros" abre o ReadEra (`org.readera`), ou o KOReader se ele não estiver instalado.
+  O ReadEra não informa livro nem progresso a outros apps, então o botão não mostra título nem %. O
+  relógio não precisa de acesso aos arquivos do aparelho.
 
 ## Observações dos testes
 - O indicador de carga pode mostrar ‖ com carregador fraco (porta USB do PC) e a tela acesa, porque a

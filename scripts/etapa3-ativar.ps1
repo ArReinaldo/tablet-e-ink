@@ -32,9 +32,6 @@ if (-not $Desfazer) {
     # Sem tela de bloqueio de deslizar (só funciona se não houver PIN/senha):
     # tocar no protetor vai direto ao relógio
     sh "locksettings set-disabled true"
-
-    # Ler o livro atual do KOReader (/sdcard/koreader) para mostrar "Título · NN%"
-    sh "appops set $Pacote MANAGE_EXTERNAL_STORAGE allow"
 }
 else {
     # Volta ao outro launcher instalado (o padrão do aparelho)
@@ -47,7 +44,6 @@ else {
     sh "settings put secure screensaver_activate_on_sleep 0"
     sh "settings put global stay_on_while_plugged_in 7"
     sh "locksettings set-disabled false"
-    sh "appops set $Pacote MANAGE_EXTERNAL_STORAGE default"
     Write-Host "Para remover o app também: adb uninstall $Pacote"
 }
 

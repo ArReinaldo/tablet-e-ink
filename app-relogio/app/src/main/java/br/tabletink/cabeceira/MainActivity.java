@@ -8,9 +8,10 @@ import android.view.WindowInsetsController;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-/** Launcher: relógio + livro atual / "Continuar lendo" (KOReader) + lista de apps. */
+/** Launcher: relógio + "Meus livros" (ReadEra; KOReader como reserva) + lista de apps. */
 public class MainActivity extends Activity {
 
+    static final String READERA = "org.readera";
     static final String KOREADER = "org.koreader.launcher";
 
     private ClockPanel painel;
@@ -32,7 +33,7 @@ public class MainActivity extends Activity {
             }
         });
 
-        painel.aoTocarLer(v -> abrirKoreader());
+        painel.aoTocarLer(v -> abrirLeitor());
         painel.aoTocarApps(v -> startActivity(new Intent(this, AppsActivity.class)));
         painel.aoSegurarHora(v -> {
             String modo = Tema.proximoModo(this);
@@ -61,10 +62,11 @@ public class MainActivity extends Activity {
         // Tela inicial: voltar não sai daqui.
     }
 
-    private void abrirKoreader() {
-        Intent i = getPackageManager().getLaunchIntentForPackage(KOREADER);
+    private void abrirLeitor() {
+        Intent i = getPackageManager().getLaunchIntentForPackage(READERA);
+        if (i == null) i = getPackageManager().getLaunchIntentForPackage(KOREADER);
         if (i == null) {
-            Toast.makeText(this, "KOReader não está instalado", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Nenhum leitor instalado (ReadEra ou KOReader)", Toast.LENGTH_LONG).show();
             return;
         }
         startActivity(i);

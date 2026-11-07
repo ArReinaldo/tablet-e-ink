@@ -83,7 +83,6 @@ class ClockPanel extends FrameLayout {
     private boolean tempoOk;
     private long tempoTentativa, agendaTentativa;
     private List<String> rotulos = Collections.emptyList();
-    private Leitura.Livro livroAtual;
 
     ClockPanel(Context c, boolean comBotoes) {
         super(c);
@@ -423,17 +422,6 @@ class ClockPanel extends FrameLayout {
                 aplicarVisibilidade();
             });
         });
-        if (comBotoes) {
-            IO.execute(() -> {
-                Leitura.Livro l = Leitura.atual();
-                post(() -> {
-                    livroAtual = l;
-                    String t = l == null ? "Continuar lendo" : l.titulo + " · " + l.porcento + "%";
-                    livroTexto.setText(t);
-                    livroNoiteTexto.setText(t);
-                });
-            });
-        }
     }
 
     private void entregarTempo(JSONObject cache, boolean ok) {
@@ -566,7 +554,7 @@ class ClockPanel extends FrameLayout {
     }
 
     private LinearLayout botaoLivro(Context c, IconeView icone, TextView texto) {
-        texto.setText("Continuar lendo");
+        texto.setText("Meus livros");
         LinearLayout b = new LinearLayout(c);
         b.setOrientation(LinearLayout.HORIZONTAL);
         b.setGravity(Gravity.CENTER_VERTICAL);

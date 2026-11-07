@@ -3,9 +3,9 @@
 **Relógio de cabeceira estilo e-ink + leitor tipo Kindle num tablet Android barato.**
 
 Um tablet de entrada vira um relógio de cabeceira elegante — hora grande em serifa, papel de dia,
-âmbar à noite — que também mostra o tempo, seus próximos compromissos e o livro que você está lendo,
-abrindo o [KOReader](https://koreader.rocks/) no ponto em que parou. Tudo instalado pelo PC, via adb,
-**sem root**.
+âmbar à noite — que também mostra o tempo e seus próximos compromissos, com um botão “Meus livros”
+que abre o [ReadEra](https://play.google.com/store/apps/details?id=org.readera). Tudo instalado pelo
+PC, via adb, **sem root**.
 
 | Dia (papel) | Ao acordar | Noite (âmbar) |
 |---|---|---|
@@ -18,8 +18,8 @@ abrindo o [KOReader](https://koreader.rocks/) no ponto em que parou. Tudo instal
 
 ## O que faz
 - **Dia:** hora, data por extenso (“domingo, 1 de novembro”), tempo numa linha (ícone em traço fino,
-  temperatura atual, mín/máx e um resumo como “chuva à tarde”), livro atual (“Sapiens · 48%”) que abre
-  o KOReader, e os próximos 2–3 lembretes no rodapé.
+  temperatura atual, mín/máx e um resumo como “chuva à tarde”), botão “Meus livros” que abre o
+  leitor, e os próximos 2–3 lembretes no rodapé.
 - **Ao acordar:** na primeira hora depois da noite, a previsão do dia aparece em destaque.
 - **Noite:** só a hora e a data, em âmbar e com brilho mínimo. Um toque mostra o botão do livro por 10 s.
 - Transição suave entre dia e noite; layout vertical e horizontal; protetor de tela no carregador;
@@ -68,8 +68,13 @@ apps removidos pelo `etapa2-debloat.ps1` foi feita para o M8; em outro aparelho,
    ```
    (Sem `-Apk`, usa o APK que você compilou.)
    O script aplica os ajustes de sistema, remove apps desnecessários, baixa e instala o KOReader
-   oficial, instala o relógio como tela inicial e protetor de tela, e dá a ele acesso de leitura à
-   pasta do KOReader (para mostrar o livro atual).
+   oficial e instala o relógio como tela inicial e protetor de tela.
+5. **O leitor:** instale o [ReadEra](https://play.google.com/store/apps/details?id=org.readera) pela
+   Play Store. Na primeira abertura, permita o acesso a todos os arquivos para ele encontrar os livros
+   sozinho. Testado no M8 sem conta Google, com a versão 25.04.26.
+
+   **Alternativa de código aberto:** o [KOReader](https://koreader.rocks/), instalado pelo script. O
+   botão do relógio abre o KOReader quando o ReadEra não está instalado.
 
 Cada etapa também pode ser rodada sozinha e desfeita com `-Desfazer`:
 
@@ -108,14 +113,15 @@ Modelo comentado: [config.example](config.example).
 - **Horários:** `noite_inicio` / `noite_fim` (padrão 21:00–06:00), `transicao_minutos`, `acordar_minutos`.
 
 ## Uso
-- **Ler:** toque no livro (ou “Continuar lendo”). Livros (EPUB, PDF, MOBI, AZW3, FB2, CBZ…) podem ser
-  copiados pelo cabo USB (modo Transferência de arquivos) para uma pasta `Books`, ou baixados pelos
-  catálogos OPDS gratuitos do próprio KOReader. Livros com DRM (ex.: comprados na Amazon) não abrem.
+- **Ler:** toque em “Meus livros”. Se o ReadEra ainda estiver aberto, ele volta ao livro; se tiver
+  sido fechado, abre a tela inicial dele, com o livro atual em “Lendo agora”. Copie livros
+  (EPUB, PDF, MOBI, AZW3, FB2, CBZ…) pelo cabo USB (modo Transferência de arquivos) para a pasta
+  `Download`. Livros com DRM (ex.: comprados na Amazon) não abrem.
 - **Trocar o modo à mão:** segure o dedo sobre a hora — alterna automático → dia → noite → automático.
 - **apps:** lista simples dos outros apps instalados.
 
 ### Sugestão: ler acompanhando o audiolivro (Spotify)
-Instale o Spotify no tablet e toque o audiolivro enquanto lê o mesmo livro no KOReader. O áudio
+Instale o Spotify no tablet e toque o audiolivro enquanto lê o mesmo livro no leitor. O áudio
 continua em segundo plano com a tela do leitor aberta. Os audiolivros dependem da sua conta e da sua
 região.
 
@@ -148,7 +154,8 @@ limite de carga, cores suaves no sistema inteiro (saturação estilo Kindle Colo
 atualizações. Nada disso é necessário para o relógio e o leitor.
 
 ## Créditos
-- [KOReader](https://github.com/koreader/koreader) — o leitor (AGPL-3.0), instalado a partir das releases oficiais.
+- [ReadEra](https://play.google.com/store/apps/details?id=org.readera) — o leitor indicado (app de terceiros, não incluído neste repositório).
+- [KOReader](https://github.com/koreader/koreader) — leitor alternativo de código aberto (AGPL-3.0), instalado a partir das releases oficiais.
 - [Open-Meteo](https://open-meteo.com/) — previsão do tempo e busca de cidades. *Weather data by
   [Open-Meteo.com](https://open-meteo.com/)* (dados sob [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)).
 - [Noto Serif](https://fonts.google.com/noto/specimen/Noto+Serif) — a serifa do relógio, fonte do próprio Android (OFL).
