@@ -30,8 +30,6 @@ Pelo PC: `scripts\config-relogio.ps1 -Baixar`, editar em `config\` (pasta do pro
 
 ## Dados e permissões
 - Tempo: Open-Meteo (sem chave); última resposta em `tempo.json` — sem internet mostra "atualizado às HH:MM".
-- Agenda: desde a v0.4 o relógio não mostra compromissos nem baixa a agenda (as chaves `ical` e
-  `lembretes` são ignoradas).
 - Livro: o cartão "Continuar lendo" (e, à noite, "Meus livros") abre o ReadEra (`org.readera`), ou o KOReader se ele não estiver instalado.
   O ReadEra não informa livro nem progresso a outros apps, então o cartão mostra o título da chave
   `livro` (ou "Meus livros") e não mostra %. O

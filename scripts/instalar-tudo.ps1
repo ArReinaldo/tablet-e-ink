@@ -38,5 +38,5 @@ if (-not $apk) {
 Write-Host "`n== Etapa 3: relógio de cabeceira (instala o app e ativa) =="
 if ($Apk) { & "$PSScriptRoot\etapa3-ativar.ps1" -Apk $Apk } else { & "$PSScriptRoot\etapa3-ativar.ps1" }
 
-Write-Host "`nPronto. Configure cidade e agenda com: .\config-relogio.ps1 -Baixar (README > Configuração)"
+Write-Host "`nPronto. Configure a cidade e o livro com: .\config-relogio.ps1 -Baixar (README > Configuração)"
 Write-Host "Leitor: instale o ReadEra pela Play Store (README > Instalação). Sem ele, o botão abre o KOReader."

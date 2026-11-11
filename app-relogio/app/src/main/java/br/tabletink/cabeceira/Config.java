@@ -17,13 +17,11 @@ final class Config {
     String cidade = "Brasília, DF";
     double latitude = -15.7939;
     double longitude = -47.8828;
-    String ical = "";
     int noiteInicio = 21 * 60;
     int noiteFim = 6 * 60;
     int transicao = 15;
     int acordar = 60;
     int tempoIntervalo = 30;
-    int lembretesQuantos = 3;
     String livro = "";
 
     private static final String PADRAO =
@@ -96,14 +94,12 @@ final class Config {
                     case "cidade": cfg.cidade = v; break;
                     case "latitude": cfg.latitude = Double.parseDouble(v.replace(',', '.')); break;
                     case "longitude": cfg.longitude = Double.parseDouble(v.replace(',', '.')); break;
-                    case "ical": cfg.ical = v; break;
                     case "livro": cfg.livro = v; break;
                     case "noite_inicio": cfg.noiteInicio = minutos(v, cfg.noiteInicio); break;
                     case "noite_fim": cfg.noiteFim = minutos(v, cfg.noiteFim); break;
                     case "transicao_minutos": cfg.transicao = Math.max(1, Integer.parseInt(v)); break;
                     case "acordar_minutos": cfg.acordar = Math.max(0, Integer.parseInt(v)); break;
                     case "atualizar_minutos": cfg.tempoIntervalo = Math.max(10, Integer.parseInt(v)); break;
-                    case "lembretes": cfg.lembretesQuantos = Math.max(0, Math.min(5, Integer.parseInt(v))); break;
                     default: break;
                 }
             } catch (NumberFormatException ignored) {
