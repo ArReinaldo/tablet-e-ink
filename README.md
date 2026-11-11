@@ -66,8 +66,8 @@ apps removidos pelo `etapa2-debloat.ps1` foi feita para o M8; em outro aparelho,
 4. **Instalar tudo** (baixe este repositório como ZIP ou com `git clone` e abra o PowerShell na pasta):
    ```powershell
    Set-ExecutionPolicy -Scope Process Bypass
-   .\scripts\instalar-tudo.ps1 -Apk C:\Downloads\cabeceira-v0.4.0.apk              # Multilaser M8
-   .\scripts\instalar-tudo.ps1 -Apk C:\Downloads\cabeceira-v0.4.0.apk -SemDebloat  # outros aparelhos
+   .\scripts\instalar-tudo.ps1 -Apk C:\Downloads\cabeceira-v0.4.1.apk              # Multilaser M8
+   .\scripts\instalar-tudo.ps1 -Apk C:\Downloads\cabeceira-v0.4.1.apk -SemDebloat  # outros aparelhos
    ```
    (Sem `-Apk`, usa o APK que você compilou.)
    O script aplica os ajustes de sistema, remove apps desnecessários, baixa e instala o KOReader
