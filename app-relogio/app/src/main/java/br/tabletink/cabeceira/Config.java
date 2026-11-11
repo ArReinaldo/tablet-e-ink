@@ -24,6 +24,7 @@ final class Config {
     int acordar = 60;
     int tempoIntervalo = 30;
     int lembretesQuantos = 3;
+    String livro = "";
 
     private static final String PADRAO =
             "# Relógio de cabeceira — configuração\n"
@@ -53,7 +54,11 @@ final class Config {
             + "atualizar_minutos = 30\n"
             + "\n"
             + "# Quantos lembretes mostrar no rodapé (2 ou 3)\n"
-            + "lembretes = 3\n";
+            + "lembretes = 3\n"
+            + "\n"
+            + "# Livro que você está lendo, no cartão \"Continuar lendo\" (tela deitada).\n"
+            + "# Vazio = \"Meus livros\". O ReadEra não informa o livro aberto a outros apps.\n"
+            + "livro =\n";
 
     private static Config atual;
     private static long lidoEm = Long.MIN_VALUE;
@@ -100,6 +105,7 @@ final class Config {
                     case "latitude": cfg.latitude = Double.parseDouble(v.replace(',', '.')); break;
                     case "longitude": cfg.longitude = Double.parseDouble(v.replace(',', '.')); break;
                     case "ical": cfg.ical = v; break;
+                    case "livro": cfg.livro = v; break;
                     case "noite_inicio": cfg.noiteInicio = minutos(v, cfg.noiteInicio); break;
                     case "noite_fim": cfg.noiteFim = minutos(v, cfg.noiteFim); break;
                     case "transicao_minutos": cfg.transicao = Math.max(1, Integer.parseInt(v)); break;

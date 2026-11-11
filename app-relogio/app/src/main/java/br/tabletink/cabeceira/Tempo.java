@@ -26,15 +26,25 @@ final class Tempo {
         IconeView.Tipo icone;
         String resto;   // do agora até o fim do dia: "garoa à noite"
         String dia;     // do fim da noite até o fim do dia, para o destaque ao acordar
+        IconeView.Tipo iconeDia;  // o que marca o dia (chuva, sol...), para o destaque ao acordar
+        int umidade = -1;         // -1 quando a resposta guardada não tem
+        final List<Hora> horas = new ArrayList<>();  // 9h, 12h, 15h, 18h e 21h de hoje
     }
+
+    static final class Hora {
+        int hora, temp, chuva;
+        IconeView.Tipo icone;
+    }
+
+    private static final int[] HORAS_FAIXA = {9, 12, 15, 18, 21};
 
     private Tempo() {}
 
     static boolean buscar(Context c, Config cfg) {
         String url = String.format(Locale.US,
                 "https://api.open-meteo.com/v1/forecast?latitude=%.4f&longitude=%.4f"
-                        + "&current=temperature_2m,weather_code,is_day"
-                        + "&hourly=temperature_2m,weather_code,precipitation_probability"
+                        + "&current=temperature_2m,relative_humidity_2m,weather_code,is_day"
+                        + "&hourly=temperature_2m,relative_humidity_2m,weather_code,precipitation_probability"
                         + "&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max"
                         + "&timezone=auto&forecast_days=2",
                 cfg.latitude, cfg.longitude);
@@ -91,6 +101,11 @@ final class Tempo {
             int codigo = h.getJSONArray("weather_code").optInt(ih, 0);
             double temp = h.getJSONArray("temperature_2m").optDouble(ih, 0);
             boolean dia = agora.getHour() >= 6 && agora.getHour() < 18;
+            JSONArray umid = h.optJSONArray("relative_humidity_2m");
+            if (umid != null && !umid.isNull(ih)) res.umidade = (int) Math.round(umid.optDouble(ih));
+            if (cur != null && cur.has("relative_humidity_2m")) {
+                res.umidade = (int) Math.round(cur.optDouble("relative_humidity_2m"));
+            }
             if (cur != null && cur.optString("time").startsWith(horaAtual.substring(0, 13))) {
                 codigo = cur.optInt("weather_code", codigo);
                 temp = cur.optDouble("temperature_2m", temp);
@@ -104,10 +119,36 @@ final class Tempo {
             res.resto = descrever(horas, codigos, probs, hoje, agora.getHour());
             res.dia = descrever(horas, codigos, probs, hoje, fimNoiteMin / 60);
             if (res.resto == null) res.resto = res.dia;
+            res.iconeDia = iconeDoDia(res.dia, res.icone);
+
+            JSONArray temps = h.getJSONArray("temperature_2m");
+            for (int hh : HORAS_FAIXA) {
+                int k = indice(horas, String.format(Locale.US, "%sT%02d:00", hoje, hh));
+                if (k < 0) continue;
+                Hora x = new Hora();
+                x.hora = hh;
+                x.temp = (int) Math.round(temps.optDouble(k, 0));
+                x.chuva = probs.isNull(k) ? 0 : probs.optInt(k, 0);
+                x.icone = icone(codigos.optInt(k, 0), hh >= 6 && hh < 18);
+                res.horas.add(x);
+            }
             return res;
         } catch (JSONException e) {
             return null;
         }
+    }
+
+    /** Ícone que resume o dia a partir da descrição; sem nada marcante, o do momento. */
+    private static IconeView.Tipo iconeDoDia(String dia, IconeView.Tipo agora) {
+        if (dia == null) return agora;
+        if (dia.startsWith("trovoadas")) return IconeView.Tipo.TROVOADA;
+        if (dia.startsWith("chuva")) return IconeView.Tipo.CHUVA;
+        if (dia.startsWith("garoa")) return IconeView.Tipo.GAROA;
+        if (dia.equals("nublado")) return IconeView.Tipo.NUVEM;
+        if (dia.equals("neblina")) return IconeView.Tipo.NEBLINA;
+        if (dia.equals("sol entre nuvens")) return IconeView.Tipo.SOL_NUVEM;
+        if (dia.equals("céu limpo")) return IconeView.Tipo.SOL;
+        return agora;
     }
 
     private static int indice(JSONArray a, String valor) {

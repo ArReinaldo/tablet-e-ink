@@ -3,14 +3,15 @@
 ## O que mostra
 | Modo | Quando (padrão) | Conteúdo |
 |---|---|---|
-| Dia (papel) | 06:00–21:00 | hora, data por extenso, tempo (ícone · agora · mín/máx · resumo), "Meus livros", "apps", até 3 lembretes |
-| Ao acordar | 1ª hora após o fim da noite | igual ao dia, com a previsão do dia em destaque |
+| Dia (papel) | 06:00–21:00 | data no canto, hora grande, tempo numa linha (ícone · agora · mín/máx · resumo); no rodapé, a lista de apps (um toque abre) e o cartão "Continuar lendo" |
+| Ao acordar | 1ª hora após o fim da noite | hora e saudação, previsão do dia em destaque (resumo, conselho, mín/máx, umidade), faixa 9h–21h com chance de chuva, "apps" para a lista completa |
 | Noite (âmbar) | 21:00–06:00 | só hora e data; um toque mostra o botão do livro por 10 s |
 
 - Transição suave de cores e brilho (15 min) na entrada e na saída da noite.
 - Bateria discreta no canto: raio = carregando, ‖ = corrente parada (limite de carga 50/85).
 - Proteção da tela: o conteúdo se desloca ±8 dp a cada 3 min.
-- Vertical e horizontal; o layout troca sozinho ao girar.
+- Vertical e horizontal, com a mesma tela rearranjada; o layout troca sozinho ao girar.
+- Bateria: de dia mostra também "carga em pausa" quando o limite de carga atua.
 - Segurar a hora alterna auto → dia → noite → auto (como antes).
 - Cores do tema iguais às da v0.1; no tablet o filtro Colorsoft (saturação 0,45) deixa o âmbar amarelo-claro.
 
@@ -25,8 +26,8 @@ Pelo PC: `scripts\config-relogio.ps1 -Baixar`, editar em `config\` (pasta do pro
 | `noite_inicio` / `noite_fim` | 21:00 / 06:00 |
 | `transicao_minutos` | 15 |
 | `acordar_minutos` | 60 |
-| `atualizar_minutos` | 30 (tempo e agenda) |
-| `lembretes` | 3 |
+| `atualizar_minutos` | 30 (tempo) |
+| `livro` | vazio → "Meus livros" no cartão; escreva o título do livro atual |
 
 **Google Agenda:** Agenda no navegador → Configurações → sua agenda → *Endereço secreto no formato iCal* →
 copie para `ical = https://calendar.google.com/calendar/ical/.../basic.ics`. Não compartilhe esse link.
