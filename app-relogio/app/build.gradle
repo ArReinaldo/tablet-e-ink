@@ -10,8 +10,8 @@ android {
         applicationId 'br.tabletink.cabeceira'
         minSdk 30
         targetSdk 34
-        versionCode 3
-        versionName '0.3'
+        versionCode 4
+        versionName '0.4'
     }
 
     // Assinatura da release: só se existir <projeto>/assinatura/keystore.properties (fora do git).

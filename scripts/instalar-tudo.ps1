@@ -1,7 +1,7 @@
 ﻿# Instala o projeto inteiro num tablet (sem root): ajustes, limpeza de apps, KOReader e o relógio.
 # Antes: Depuração USB ligada e PC autorizado no tablet (README > Instalação).
 # Uso:
-#   .\instalar-tudo.ps1 -Apk C:\caminho\cabeceira-v0.3.0.apk   -> com o APK baixado das Releases
+#   .\instalar-tudo.ps1 -Apk C:\caminho\cabeceira-v0.4.0.apk   -> com o APK baixado das Releases
 #   .\instalar-tudo.ps1                                         -> com o APK compilado localmente
 #   -SemDebloat   -> pula a remoção de apps (recomendado fora do Multilaser M8)
 param([switch]$SemDebloat, [string]$Apk)

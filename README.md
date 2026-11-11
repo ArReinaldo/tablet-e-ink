@@ -13,14 +13,17 @@ PC, via adb, **sem root**.
 
 ![Modo dia na horizontal](docs/img/dia-horizontal.png)
 
-> Capturas de tela feitas no aparelho. Os lembretes são de exemplo. No tablet de teste as cores
+![Ao acordar na horizontal](docs/img/acordar-horizontal.png)
+
+> Capturas de tela feitas no aparelho. No tablet de teste as cores
 > aparecem mais suaves por causa do filtro de saturação opcional (ver [Root opcional](#root-opcional)).
 
 ## O que faz
-- **Dia:** hora, data por extenso (“domingo, 1 de novembro”), tempo numa linha (ícone em traço fino,
-  temperatura atual, mín/máx e um resumo como “chuva à tarde”), botão “Meus livros” que abre o
-  leitor, e os próximos 2–3 lembretes no rodapé.
-- **Ao acordar:** na primeira hora depois da noite, a previsão do dia aparece em destaque.
+- **Dia:** data por extenso no canto, hora grande, tempo numa linha (ícone em traço fino,
+  temperatura atual, mín/máx e um resumo como “chuva à tarde”) e, no rodapé, a lista dos apps
+  instalados (um toque abre) e o cartão “Continuar lendo”, que abre o leitor.
+- **Ao acordar:** na primeira hora depois da noite, a previsão do dia em destaque: resumo, um conselho
+  (“Leve o guarda-chuva.”), mín/máx, umidade e uma faixa das 9h às 21h com a chance de chuva.
 - **Noite:** só a hora e a data, em âmbar e com brilho mínimo. Um toque mostra o botão do livro por 10 s.
 - Transição suave entre dia e noite; layout vertical e horizontal; protetor de tela no carregador;
   indicador discreto de bateria; deslocamento periódico do conteúdo para proteger a tela.
@@ -63,8 +66,8 @@ apps removidos pelo `etapa2-debloat.ps1` foi feita para o M8; em outro aparelho,
 4. **Instalar tudo** (baixe este repositório como ZIP ou com `git clone` e abra o PowerShell na pasta):
    ```powershell
    Set-ExecutionPolicy -Scope Process Bypass
-   .\scripts\instalar-tudo.ps1 -Apk C:\Downloads\cabeceira-v0.3.0.apk              # Multilaser M8
-   .\scripts\instalar-tudo.ps1 -Apk C:\Downloads\cabeceira-v0.3.0.apk -SemDebloat  # outros aparelhos
+   .\scripts\instalar-tudo.ps1 -Apk C:\Downloads\cabeceira-v0.4.0.apk              # Multilaser M8
+   .\scripts\instalar-tudo.ps1 -Apk C:\Downloads\cabeceira-v0.4.0.apk -SemDebloat  # outros aparelhos
    ```
    (Sem `-Apk`, usa o APK que você compilou.)
    O script aplica os ajustes de sistema, remove apps desnecessários, baixa e instala o KOReader
@@ -83,7 +86,7 @@ Cada etapa também pode ser rodada sozinha e desfeita com `-Desfazer`:
 | `scripts\etapa2-config.ps1` | desliga animações; tela ligada no carregador; modo monocromático |
 | `scripts\etapa2-debloat.ps1` | remove apps para o usuário 0 (`pm uninstall --user 0`) |
 | `scripts\etapa3-ativar.ps1` | instala o relógio; tela inicial; protetor de tela; sem tela de bloqueio de deslizar |
-| `scripts\config-relogio.ps1` | baixa/envia a configuração e os lembretes |
+| `scripts\config-relogio.ps1` | baixa/envia a configuração |
 
 ## Configuração
 Tudo fica num arquivo, `cabeceira.conf`, na pasta do app no tablet
@@ -91,34 +94,23 @@ Tudo fica num arquivo, `cabeceira.conf`, na pasta do app no tablet
 
 ```powershell
 .\scripts\config-relogio.ps1 -Baixar   # copia para a pasta config\ do projeto (fora do git)
-# edite config\cabeceira.conf e config\lembretes.txt
+# edite config\cabeceira.conf
 .\scripts\config-relogio.ps1 -Enviar
 ```
 Modelo comentado: [config.example](config.example).
 
 - **Cidade:** troque `latitude` e `longitude`. Para achar as da sua cidade, abra
   `https://geocoding-api.open-meteo.com/v1/search?name=SUA_CIDADE&language=pt&countryCode=BR`.
-- **Google Agenda:** no navegador, Google Agenda → Configurações → sua agenda →
-  **Endereço secreto no formato iCal** → cole em `ical = ...`. O tablet não precisa de conta Google.
-  Esse link dá acesso de leitura à sua agenda: **não o compartilhe nem o publique**.
-- **Sem Google Agenda:** deixe `ical =` vazio e escreva os lembretes em `lembretes.txt`, um por linha
-  (modelo: [lembretes.example.txt](lembretes.example.txt)):
-  ```
-  2026-11-03 14:00 Reunião
-  2026-11-05 Aniversário da Ana
-  ter 9h30 Dentista
-  todo-dia 22:00 Remédio
-  25/12 Natal
-  ```
+- **Livro:** `livro = Título do livro` mostra o título no cartão “Continuar lendo” (vazio = “Meus livros”).
 - **Horários:** `noite_inicio` / `noite_fim` (padrão 21:00–06:00), `transicao_minutos`, `acordar_minutos`.
 
 ## Uso
-- **Ler:** toque em “Meus livros”. Se o ReadEra ainda estiver aberto, ele volta ao livro; se tiver
+- **Ler:** toque no cartão “Continuar lendo” (à noite, toque na tela e depois em “Meus livros”). Se o ReadEra ainda estiver aberto, ele volta ao livro; se tiver
   sido fechado, abre a tela inicial dele, com o livro atual em “Lendo agora”. Copie livros
   (EPUB, PDF, MOBI, AZW3, FB2, CBZ…) pelo cabo USB (modo Transferência de arquivos) para a pasta
   `Download`. Livros com DRM (ex.: comprados na Amazon) não abrem.
 - **Trocar o modo à mão:** segure o dedo sobre a hora — alterna automático → dia → noite → automático.
-- **apps:** lista simples dos outros apps instalados.
+- **Apps:** de dia, a lista fica no rodapé; ao acordar, toque em “apps” para abrir a lista completa.
 
 ### Sugestão: ler acompanhando o audiolivro (Spotify)
 Instale o Spotify no tablet e toque o audiolivro enquanto lê o mesmo livro no leitor. O áudio

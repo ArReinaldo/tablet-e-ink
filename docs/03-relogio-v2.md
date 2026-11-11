@@ -1,4 +1,4 @@
-# Relógio de cabeceira v0.3 — detalhes
+# Relógio de cabeceira v0.4 — detalhes
 
 ## O que mostra
 | Modo | Quando (padrão) | Conteúdo |
@@ -22,31 +22,19 @@ Pelo PC: `scripts\config-relogio.ps1 -Baixar`, editar em `config\` (pasta do pro
 | Chave | Padrão |
 |---|---|
 | `latitude` / `longitude` | Brasília (DF): -15.7939 / -47.8828 — troque pela sua cidade |
-| `ical` | vazio → usa `lembretes.txt` |
 | `noite_inicio` / `noite_fim` | 21:00 / 06:00 |
 | `transicao_minutos` | 15 |
 | `acordar_minutos` | 60 |
 | `atualizar_minutos` | 30 (tempo) |
 | `livro` | vazio → "Meus livros" no cartão; escreva o título do livro atual |
 
-**Google Agenda:** Agenda no navegador → Configurações → sua agenda → *Endereço secreto no formato iCal* →
-copie para `ical = https://calendar.google.com/calendar/ical/.../basic.ics`. Não compartilhe esse link.
-
-**lembretes.txt** (quando `ical` está vazio), um por linha:
-```
-2026-11-03 14:00 Reunião
-2026-11-05 Aniversário da Ana
-ter 9h30 Dentista
-todo-dia 22:00 Remédio
-25/12 Natal
-```
-
 ## Dados e permissões
 - Tempo: Open-Meteo (sem chave); última resposta em `tempo.json` — sem internet mostra "atualizado às HH:MM".
-- Agenda: cache em `agenda.ics`. Suporta repetições (diária/semanal/mensal/anual, BYDAY, COUNT, UNTIL),
-  exceções e ocorrências remarcadas/canceladas. Lembrete repetido aparece só na próxima ocorrência.
-- Livro: "Meus livros" abre o ReadEra (`org.readera`), ou o KOReader se ele não estiver instalado.
-  O ReadEra não informa livro nem progresso a outros apps, então o botão não mostra título nem %. O
+- Agenda: desde a v0.4 o relógio não mostra compromissos nem baixa a agenda (as chaves `ical` e
+  `lembretes` são ignoradas).
+- Livro: o cartão "Continuar lendo" (e, à noite, "Meus livros") abre o ReadEra (`org.readera`), ou o KOReader se ele não estiver instalado.
+  O ReadEra não informa livro nem progresso a outros apps, então o cartão mostra o título da chave
+  `livro` (ou "Meus livros") e não mostra %. O
   relógio não precisa de acesso aos arquivos do aparelho.
 
 ## Observações dos testes

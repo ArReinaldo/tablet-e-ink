@@ -10,11 +10,6 @@ cidade = Brasília, DF
 latitude = -15.7939
 longitude = -47.8828
 
-# Endereço secreto no formato iCal do Google Agenda
-# (Agenda > Configurações > sua agenda > Endereço secreto no formato iCal).
-# Vazio = usa o arquivo lembretes.txt desta mesma pasta.
-ical =
-
 # Modo noite (só a hora e a data, em âmbar) e a transição suave, em minutos
 noite_inicio = 21:00
 noite_fim = 06:00
@@ -23,8 +18,9 @@ transicao_minutos = 15
 # Depois do fim da noite, quanto tempo a previsão do dia fica em destaque
 acordar_minutos = 60
 
-# De quanto em quanto tempo atualizar o tempo e a agenda
+# De quanto em quanto tempo atualizar o tempo
 atualizar_minutos = 30
 
-# Quantos lembretes mostrar no rodapé (2 ou 3)
-lembretes = 3
+# Livro que você está lendo, mostrado no cartão "Continuar lendo".
+# Vazio = "Meus livros". O ReadEra não informa o livro aberto a outros apps.
+livro =
