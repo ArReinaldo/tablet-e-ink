@@ -101,7 +101,9 @@ Modelo comentado: [config.example](config.example).
 
 - **Cidade:** troque `latitude` e `longitude`. Para achar as da sua cidade, abra
   `https://geocoding-api.open-meteo.com/v1/search?name=SUA_CIDADE&language=pt&countryCode=BR`.
-- **Livro:** `livro = Título do livro` mostra o título no cartão “Continuar lendo” (vazio = “Meus livros”).
+- **Livro:** o cartão “Continuar lendo” mostra sozinho o último livro aberto no ReadEra e quanto
+  já foi lido. Para isso o relógio lê o banco do ReadEra com root (conceda Superusuário ao
+  “Cabeceira” no Magisk). Sem root, o cartão mostra só “Continuar leitura”.
 - **Horários:** `noite_inicio` / `noite_fim` (padrão 21:00–06:00), `transicao_minutos`, `acordar_minutos`.
 
 ## Uso

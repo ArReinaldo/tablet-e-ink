@@ -20,7 +20,3 @@ acordar_minutos = 60
 
 # De quanto em quanto tempo atualizar o tempo
 atualizar_minutos = 30
-
-# Livro que você está lendo, mostrado no cartão "Continuar lendo".
-# Vazio = "Meus livros". O ReadEra não informa o livro aberto a outros apps.
-livro =

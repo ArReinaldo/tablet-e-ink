@@ -47,6 +47,7 @@ public class MainActivity extends Activity {
     protected void onResume() {
         super.onResume();
         esconderBarras();
+        painel.lerLivro();
         painel.atualizar();
     }
 

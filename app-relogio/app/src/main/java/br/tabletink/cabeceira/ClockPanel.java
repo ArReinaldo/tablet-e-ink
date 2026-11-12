@@ -106,6 +106,7 @@ class ClockPanel extends FrameLayout {
     private boolean bateriaPausa;
     private ValueAnimator animacao;
     private boolean livroNaNoite;
+    private long livroLidoEm;
     private int corFundo = Tema.DIA_FUNDO, corTinta = Tema.DIA_TINTA, corSuave = Tema.DIA_SUAVE;
 
     // Dados (carregados em segundo plano)
@@ -175,6 +176,7 @@ class ClockPanel extends FrameLayout {
         cartao.setMinimumHeight(dp(83));
         cartao.addView(cartaoIcone, new LinearLayout.LayoutParams(dp(19), dp(15)));
         cartao.addView(cartaoTextos, margemEsquerda(dp(13)));
+        mostrarLivro(null);
 
         apps = texto(14, Typeface.SERIF);
         apps.setText("apps");
@@ -389,11 +391,11 @@ class ClockPanel extends FrameLayout {
         data.setText(d);
         dataTopo.setText(maiuscula(d));
         manhaSaudacao.setText(saudacao() + " · " + d);
-        cartaoTitulo.setText((cfg.livro.isEmpty() ? "Meus livros" : cfg.livro) + FOLGA);
         int volta = (cfg.noiteFim + cfg.acordar) % 1440;
         manhaVolta.setText(String.format(PT_BR, "volta ao layout normal às %02d:%02d", volta / 60, volta % 60) + FOLGA);
 
         if (comBotoes && System.currentTimeMillis() - appsLidosEm > 5 * MINUTO) lerApps();
+        if (comBotoes && System.currentTimeMillis() - livroLidoEm > 15 * MINUTO) lerLivro();
 
         // A pausa da carga não gera broadcast de bateria; reavalia a corrente a cada minuto
         if (ultimaBateria != null) atualizarBateria(ultimaBateria);
@@ -517,6 +519,28 @@ class ClockPanel extends FrameLayout {
     };
 
     // ------------------------------------------------------------------ dados
+
+    /** Relê o último livro do ReadEra (ao voltar para a tela e a cada 15 min). */
+    void lerLivro() {
+        livroLidoEm = System.currentTimeMillis();
+        Context c = getContext().getApplicationContext();
+        IO.execute(() -> {
+            Leitura.Livro l = Leitura.ultimo(c);
+            post(() -> mostrarLivro(l));
+        });
+    }
+
+    private void mostrarLivro(Leitura.Livro l) {
+        if (l == null) {
+            cartaoRotulo.setVisibility(GONE);
+            cartaoTitulo.setText("Continuar leitura" + FOLGA);
+        } else {
+            cartaoRotulo.setVisibility(VISIBLE);
+            cartaoRotulo.setText(l.porcento >= 0
+                    ? String.format(PT_BR, "CONTINUAR LENDO · %d%%", l.porcento) : "CONTINUAR LENDO");
+            cartaoTitulo.setText(l.titulo + FOLGA);
+        }
+    }
 
     private void carregarDados(Config cfg) {
         Context c = getContext().getApplicationContext();
